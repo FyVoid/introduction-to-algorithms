@@ -85,4 +85,35 @@ public:
         }
         return ret;
     }
+private:
+    static void heapify(std::vector<T>&data, size_t i, size_t n) {
+        size_t largest = i;
+        size_t left = 2 * i + 1;
+        size_t right = 2 * i + 2;
+
+        if (left < n && data[left] > data[largest]) {
+            largest = left;
+        }
+        if (right < n && data[right] > data[largest]) {
+            largest = right;
+        }
+        if (largest != i) {
+            std::swap(data[i], data[largest]);
+            heapify(data, largest, n);
+        }
+    }
+public:
+    static std::vector<T> heapSort(const std::vector<T>& data) {
+        auto ret = data;
+        for (int i = ret.size() / 2; i >= 0; i--) {
+            heapify(ret, i, ret.size());
+        }
+        for (int i = ret.size() - 1; i > 0; i--) {
+            std::swap(ret[0], ret[i]);
+            heapify(ret, 0, i);
+        }
+        return ret;
+    }
 };
+
+template class SortingAlgorithm<int>;

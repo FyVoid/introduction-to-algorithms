@@ -28,3 +28,5 @@ This is implementation of algorithms in book *Introduction to Algorithms* in c++
 ### Insertion Sort & Bubble Sort
 
 ### Merge Sort
+
+### Heap Sort and Priority Queue

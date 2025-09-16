@@ -12,7 +12,7 @@ void print(const std::vector<T>& vec) {
 int main() {
     auto data = SortingAlgorithm<int>::makeData(20);
     print(data);
-    auto sorted = SortingAlgorithm<int>::mergeSort(data);
+    auto sorted = SortingAlgorithm<int>::heapSort(data);
     print(sorted);
     return 0;
 }
