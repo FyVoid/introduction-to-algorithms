@@ -32,3 +32,5 @@ This is implementation of algorithms in book *Introduction to Algorithms* in c++
 ### Heap Sort and Priority Queue
 
 ### Quick Sort (and its random version!)
+
+### Counting Sort

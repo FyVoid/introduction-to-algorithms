@@ -150,6 +150,19 @@ public:
         qsort(ret, 0, data.size());
         return ret;
     }
+    static std::vector<T> countingSort(const std::vector<T>& data, T maxValue) {
+        std::vector<size_t> count(maxValue + 1, 0);
+        for (const auto& elem : data) {
+            count[elem]++;
+        }
+        std::vector<T> ret;
+        for (size_t i = 0; i < count.size(); i++) {
+            for (size_t j = 0; j < count[i]; j++) {
+                ret.push_back(static_cast<T>(i));
+            }
+        }
+        return ret;
+    }
 };
 
 template class SortingAlgorithm<int>;
