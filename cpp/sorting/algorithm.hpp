@@ -114,6 +114,42 @@ public:
         }
         return ret;
     }
+private:
+    static size_t partition(std::vector<T>& data, size_t begin, size_t end) {
+        auto pivot = data[begin];
+        auto left = begin + 1;
+        auto right = end - 1;
+
+        while (true) {
+            while (data[left] < pivot) {
+                left++;
+            }
+            while (data[right] > pivot) {
+                right--;
+            }
+            if (left >= right) {
+                break;
+            }
+            std::swap(data[left], data[right]);
+        }
+
+        std::swap(data[begin], data[right]);
+
+        return right;
+    }
+    static void qsort(std::vector<T>& data, size_t begin, size_t end) {
+        if (begin < end) {
+            auto mid = partition(data, begin, end);
+            qsort(data, begin, mid);
+            qsort(data, mid + 1, end);
+        }
+    }
+public:
+    static std::vector<T> quickSort(const std::vector<T>& data) {
+        auto ret = data;
+        qsort(ret, 0, data.size());
+        return ret;
+    }
 };
 
 template class SortingAlgorithm<int>;

@@ -30,3 +30,5 @@ This is implementation of algorithms in book *Introduction to Algorithms* in c++
 ### Merge Sort
 
 ### Heap Sort and Priority Queue
+
+### Quick Sort (and its random version!)
