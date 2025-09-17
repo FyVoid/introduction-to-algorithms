@@ -16,39 +16,39 @@ void check_vector_equal(const std::vector<T>& a, const std::vector<T>& b) {
 }
 
 int main() {
-    auto data = SortingAlgorithm<int>::shuffle(SortingAlgorithm<int>::makeData(10000));
+    auto data = SortingAlgorithm<int>::shuffle(SortingAlgorithm<int>::make_data(10000));
     auto standard = data;
     std::sort(standard.begin(), standard.end());
     time_it([data, standard]() {
-        auto sorted = SortingAlgorithm<int>::insertionSort(data);
+        auto sorted = SortingAlgorithm<int>::insertion_sort(data);
         check_vector_equal(standard, sorted);
     }, "Insertion Sort");
     time_it([data, standard]() {
-        auto sorted = SortingAlgorithm<int>::bubbleSort(data);
+        auto sorted = SortingAlgorithm<int>::bubble_sort(data);
         check_vector_equal(standard, sorted);
     }, "Bubble Sort");
     time_it([data, standard]() {
-        auto sorted = SortingAlgorithm<int>::mergeSort(data);
+        auto sorted = SortingAlgorithm<int>::merge_sort(data);
         check_vector_equal(standard, sorted);
     }, "Merge Sort");
     time_it([data, standard]() {
-        auto sorted = SortingAlgorithm<int>::heapSort(data);
+        auto sorted = SortingAlgorithm<int>::heap_sort(data);
         check_vector_equal(standard, sorted);
     }, "Heap Sort");
     time_it([data, standard]() {
-        auto sorted = SortingAlgorithm<int>::quickSort(data);
+        auto sorted = SortingAlgorithm<int>::quick_sort(data);
         check_vector_equal(standard, sorted);
     }, "Quick Sort");
     time_it([data, standard]() {
-        auto sorted = SortingAlgorithm<int>::countingSort(data, data.size());
+        auto sorted = SortingAlgorithm<int>::counting_sort(data, data.size());
         check_vector_equal(standard, sorted);
     }, "Counting Sort");
     time_it([data, standard]() {
-        auto sorted = SortingAlgorithm<int>::radixSort(data);
+        auto sorted = SortingAlgorithm<int>::radix_sort(data);
         check_vector_equal(standard, sorted);
     }, "Radix Sort");
     time_it([data, standard]() {
-        auto sorted = SortingAlgorithm<int>::bucketSort(data, 10);
+        auto sorted = SortingAlgorithm<int>::bucket_sort(data, 10);
         check_vector_equal(standard, sorted);
     }, "Bucket Sort");
     return 0;

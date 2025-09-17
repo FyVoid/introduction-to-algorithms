@@ -2,25 +2,24 @@
 
 #include <vector>
 #include <concepts>
-#include "helper.hpp"
+#include <random>
 #include <iostream>
 #include <algorithm>
 
 template<std::totally_ordered T>
 class SortingAlgorithm {
 public:
-    static std::vector<T> shuffle(const std::vector<T>& data) {
-        auto ret = data;
-        for (size_t i = 0; i < ret.size(); i++) {
-            auto j = get_rand<size_t>(0, ret.size() - 1);
-            std::swap(ret[i], ret[j]);
-        }
-        return ret;
-    }
     static std::vector<T> make_data(size_t n) {
         std::vector<T> ret(n);
+        std::random_device rd;
+        std::mt19937 g(rd());
+        std::uniform_int_distribution<int> distrib(0, n);
         for (size_t i = 0; i < n; i++) {
-            ret[i] = get_rand<T>(0, static_cast<T>(n));
+            if constexpr (std::is_integral_v<T>) {
+            ret[i] = distrib(g);
+            } else {
+            ret[i] = static_cast<T>(distrib(g));
+            }
         }
         return ret;
     }
@@ -139,14 +138,9 @@ private:
 
         return right;
     }
-    static size_t random_partition(std::vector<T>& data, size_t begin, size_t end) {
-        auto pivot_index = get_rand<size_t>(begin, end - 1);
-        std::swap(data[begin], data[pivot_index]);
-        return partition(data, begin, end);
-    }
     static void qsort(std::vector<T>& data, size_t begin, size_t end) {
         if (begin + 1 < end) {
-            auto mid = random_partition(data, begin, end);
+            auto mid = partition(data, begin, end);
             qsort(data, begin, mid);
             qsort(data, mid + 1, end);
         }
