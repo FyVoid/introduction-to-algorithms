@@ -42,3 +42,8 @@ This is implementation of algorithms in book *Introduction to Algorithms* in c++
 ## Order Statistics
 
 Select ith smallest/largest element
+
+### Selection with random partiion
+
+### BFPRT (Median of Medians)
+
