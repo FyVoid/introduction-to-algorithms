@@ -1,5 +1,8 @@
 #include "algorithm.hpp"
 #include <iostream>
+#include <algorithm>
+#include <chrono>
+#include <functional>
 
 template<typename T>
 void print(const std::vector<T>& vec) {
@@ -9,10 +12,23 @@ void print(const std::vector<T>& vec) {
     std::cout << std::endl;
 }
 
+void time_it(std::function<void()> func) {
+    auto start = std::chrono::high_resolution_clock::now();
+    func();
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> duration = end - start;
+    std::cout << "Time taken: " << duration.count() << " ms" << std::endl;
+}
+
 int main() {
-    auto data = SortingAlgorithm<int>::makeData(20);
+    auto data = SortingAlgorithm<int>::makeData(100);
     print(data);
-    auto sorted = SortingAlgorithm<int>::countingSort(data, *std::max_element(data.begin(), data.end()));
-    print(sorted);
+    auto standard = data;
+    std::sort(standard.begin(), standard.end());
+    print(standard);
+    time_it([data]() {
+        auto sorted = SortingAlgorithm<int>::radixSort(data);
+        print(sorted);
+    });
     return 0;
 }

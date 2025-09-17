@@ -25,15 +25,13 @@ public:
     static std::vector<T> insertionSort(const std::vector<T>& data) {
         auto ret = data;
         for (size_t i = 1; i < ret.size(); i++) {
-            size_t j = i;
-            while (j > 0 && ret[j - 1] > ret[i]) {
+            auto key = ret[i];
+            int j = i - 1;
+            while (j >= 0 && ret[j] > key) {
+                ret[j + 1] = ret[j];
                 j--;
             }
-            auto tmp = ret[i];
-            for (size_t k = j; k < i; k++) {
-                ret[k + 1] = ret[k];
-            }
-            ret[j] = tmp;
+            ret[j + 1] = key;
         }
         return ret;
     }
@@ -131,6 +129,8 @@ private:
                 break;
             }
             std::swap(data[left], data[right]);
+            left++;
+            right--;
         }
 
         std::swap(data[begin], data[right]);
@@ -138,7 +138,7 @@ private:
         return right;
     }
     static void qsort(std::vector<T>& data, size_t begin, size_t end) {
-        if (begin < end) {
+        if (begin + 1 < end) {
             auto mid = partition(data, begin, end);
             qsort(data, begin, mid);
             qsort(data, mid + 1, end);
@@ -161,6 +161,31 @@ public:
                 ret.push_back(static_cast<T>(i));
             }
         }
+        return ret;
+    }
+    static std::vector<int> radixSort(const std::vector<int> &data)
+    requires std::same_as<T, int> {
+        std::vector<int> ret = data;
+        for (int i = 0; i < sizeof(int) * 8; i++) {
+            size_t count = 0;
+            std::vector<int> tmp(ret.size(), 0);
+            for (const auto& num : ret) {
+                count += ((num & (1 << i)) >> i);
+            }
+            size_t oindex = 0;
+            size_t zindex = ret.size() - count;
+            for (const auto& num : ret) {
+                if (num & (1 << i)) {
+                    tmp[zindex] = num;
+                    zindex++;
+                } else {
+                    tmp[oindex] = num;
+                    oindex++;
+                }
+            }
+            ret = tmp;
+        }
+
         return ret;
     }
 };
