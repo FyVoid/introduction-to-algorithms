@@ -131,9 +131,14 @@ private:
 
         return right;
     }
+    static size_t random_partition(std::vector<T>& data, size_t begin, size_t end) {
+        auto pivot_index = get_rand<size_t>(begin, end - 1);
+        std::swap(data[begin], data[pivot_index]);
+        return partition(data, begin, end);
+    }
     static void qsort(std::vector<T>& data, size_t begin, size_t end) {
         if (begin + 1 < end) {
-            auto mid = partition(data, begin, end);
+            auto mid = random_partition(data, begin, end);
             qsort(data, begin, mid);
             qsort(data, mid + 1, end);
         }
