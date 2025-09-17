@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <concepts>
-#include <random>
+#include "helper.hpp"
 #include <iostream>
 #include <algorithm>
 
@@ -11,15 +11,8 @@ class SortingAlgorithm {
 public:
     static std::vector<T> makeData(size_t n) {
         std::vector<T> ret(n);
-        std::random_device rd;
-        std::mt19937 g(rd());
-        std::uniform_int_distribution<int> distrib(0, n);
         for (size_t i = 0; i < n; i++) {
-            if constexpr (std::is_integral_v<T>) {
-            ret[i] = distrib(g);
-            } else {
-            ret[i] = static_cast<T>(distrib(g));
-            }
+            ret[i] = get_rand<T>(0, static_cast<T>(n));
         }
         return ret;
     }
