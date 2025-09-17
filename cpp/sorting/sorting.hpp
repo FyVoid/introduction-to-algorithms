@@ -121,10 +121,10 @@ private:
         auto right = end - 1;
 
         while (true) {
-            while (data[left] < pivot) {
+            while (left < right && data[left] < pivot) {
                 left++;
             }
-            while (data[right] > pivot) {
+            while (right > left && data[right] > pivot) {
                 right--;
             }
             if (left >= right) {
