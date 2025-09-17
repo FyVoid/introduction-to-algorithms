@@ -16,7 +16,7 @@ void check_vector_equal(const std::vector<T>& a, const std::vector<T>& b) {
 }
 
 int main() {
-    auto data = SortingAlgorithm<int>::makeData(10000);
+    auto data = SortingAlgorithm<int>::shuffle(SortingAlgorithm<int>::makeData(10000));
     auto standard = data;
     std::sort(standard.begin(), standard.end());
     time_it([data, standard]() {
