@@ -1,34 +1,55 @@
-#include "algorithm.hpp"
-#include <iostream>
+#include "sorting.hpp"
+#include "helper.hpp"
 #include <algorithm>
-#include <chrono>
-#include <functional>
 
-template<typename T>
-void print(const std::vector<T>& vec) {
-    for (const auto& elem : vec) {
-        std::cout << elem << " ";
+template <typename T>
+void check_vector_equal(const std::vector<T>& a, const std::vector<T>& b) {
+    if (a.size() != b.size()) {
+        throw std::runtime_error("Vectors have different sizes");
     }
-    std::cout << std::endl;
-}
-
-void time_it(std::function<void()> func) {
-    auto start = std::chrono::high_resolution_clock::now();
-    func();
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double, std::milli> duration = end - start;
-    std::cout << "Time taken: " << duration.count() << " ms" << std::endl;
+    for (size_t i = 0; i < a.size(); i++) {
+        if (a[i] != b[i]) {
+            throw std::runtime_error("Vectors are not equal");
+        }
+    }
+    std::cout << "Check passed: Vectors are equal." << std::endl;
 }
 
 int main() {
-    auto data = SortingAlgorithm<int>::makeData(100);
-    print(data);
+    auto data = SortingAlgorithm<int>::makeData(10000);
     auto standard = data;
     std::sort(standard.begin(), standard.end());
-    print(standard);
-    time_it([data]() {
+    time_it([data, standard]() {
+        auto sorted = SortingAlgorithm<int>::insertionSort(data);
+        check_vector_equal(standard, sorted);
+    }, "Insertion Sort");
+    time_it([data, standard]() {
+        auto sorted = SortingAlgorithm<int>::bubbleSort(data);
+        check_vector_equal(standard, sorted);
+    }, "Bubble Sort");
+    time_it([data, standard]() {
+        auto sorted = SortingAlgorithm<int>::mergeSort(data);
+        check_vector_equal(standard, sorted);
+    }, "Merge Sort");
+    time_it([data, standard]() {
+        auto sorted = SortingAlgorithm<int>::heapSort(data);
+        check_vector_equal(standard, sorted);
+    }, "Heap Sort");
+    time_it([data, standard]() {
+        auto sorted = SortingAlgorithm<int>::quickSort(data);
+        check_vector_equal(standard, sorted);
+    }, "Quick Sort");
+    time_it([data, standard]() {
+        auto sorted = SortingAlgorithm<int>::countingSort(data, data.size());
+        check_vector_equal(standard, sorted);
+    }, "Counting Sort");
+    time_it([data, standard]() {
+        auto sorted = SortingAlgorithm<int>::radixSort(data);
+        check_vector_equal(standard, sorted);
+    }, "Radix Sort");
+    time_it([data, standard]() {
         auto sorted = SortingAlgorithm<int>::bucketSort(data, 10);
-        print(sorted);
-    });
+        check_vector_equal(standard, sorted);
+    }, "Bucket Sort");
     return 0;
 }

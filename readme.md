@@ -38,3 +38,7 @@ This is implementation of algorithms in book *Introduction to Algorithms* in c++
 ### Radix Sort (and how it's implemented parallelly)
 
 ### Bucket Sort
+
+## Order Statistics
+
+Select ith smallest/largest element
