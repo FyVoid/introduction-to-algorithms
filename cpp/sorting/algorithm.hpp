@@ -4,6 +4,7 @@
 #include <concepts>
 #include <random>
 #include <iostream>
+#include <algorithm>
 
 template<std::totally_ordered T>
 class SortingAlgorithm {
@@ -163,29 +164,57 @@ public:
         }
         return ret;
     }
-    static std::vector<int> radixSort(const std::vector<int> &data)
-    requires std::same_as<T, int> {
+    static std::vector<int> radixSort(const std::vector<int>& data)
+        requires std::is_same_v<T, int> {
+        if (data.empty()) return data;
+        
         std::vector<int> ret = data;
-        for (int i = 0; i < sizeof(int) * 8; i++) {
+        std::vector<int> buffer(data.size());
+        
+        for (int& num : ret) {
+            num ^= (1 << 31);
+        }
+        
+        constexpr int BITS = sizeof(int) * 8;
+        
+        for (int i = 0; i < BITS; i++) {
             size_t count = 0;
-            std::vector<int> tmp(ret.size(), 0);
             for (const auto& num : ret) {
-                count += ((num & (1 << i)) >> i);
+                count += ((num >> i) & 1);
             }
-            size_t oindex = 0;
-            size_t zindex = ret.size() - count;
+            size_t zero_index = 0;
+            size_t one_index = ret.size() - count;
             for (const auto& num : ret) {
-                if (num & (1 << i)) {
-                    tmp[zindex] = num;
-                    zindex++;
+                if ((num >> i) & 1) {
+                    buffer[one_index++] = num;
                 } else {
-                    tmp[oindex] = num;
-                    oindex++;
+                    buffer[zero_index++] = num;
                 }
             }
-            ret = tmp;
+            std::swap(ret, buffer);
         }
-
+        for (int& num : ret) {
+            num ^= (1 << 31);
+        }
+        
+        return ret;
+    }
+    static std::vector<T> bucketSort(const std::vector<T>& data, size_t bucketCount) {
+        if (data.empty()) return data;
+        T minValue = *std::min_element(data.begin(), data.end());
+        T maxValue = *std::max_element(data.begin(), data.end());
+        T range = maxValue - minValue + 1;
+        std::vector<std::vector<T>> buckets(bucketCount);
+        for (const auto& elem : data) {
+            size_t index = (elem - minValue) * bucketCount / range;
+            if (index == bucketCount) index--;
+            buckets[index].push_back(elem);
+        }
+        std::vector<T> ret;
+        for (auto& bucket : buckets) {
+            std::sort(bucket.begin(), bucket.end());
+            ret.insert(ret.end(), bucket.begin(), bucket.end());
+        }
         return ret;
     }
 };

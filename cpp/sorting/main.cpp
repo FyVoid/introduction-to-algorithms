@@ -27,7 +27,7 @@ int main() {
     std::sort(standard.begin(), standard.end());
     print(standard);
     time_it([data]() {
-        auto sorted = SortingAlgorithm<int>::radixSort(data);
+        auto sorted = SortingAlgorithm<int>::bucketSort(data, 10);
         print(sorted);
     });
     return 0;

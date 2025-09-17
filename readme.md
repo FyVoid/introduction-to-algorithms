@@ -36,3 +36,5 @@ This is implementation of algorithms in book *Introduction to Algorithms* in c++
 ### Counting Sort
 
 ### Radix Sort (and how it's implemented parallelly)
+
+### Bucket Sort
