@@ -12,7 +12,7 @@ public:
     static std::vector<T> shuffle(const std::vector<T>& data) {
         auto ret = data;
         for (size_t i = 0; i < ret.size(); i++) {
-            auto j = get_rand<size_t>(0, ret.size() - 1);
+            auto j = get_rand<size_t>(i, ret.size() - 1);
             std::swap(ret[i], ret[j]);
         }
         return ret;
