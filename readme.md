@@ -47,3 +47,20 @@ Select ith smallest/largest element
 
 ### BFPRT (Median of Medians)
 
+## Data Structures
+
+This project will NOT include implementations of data structures used in the book (since the cpp standard library already has all data structures we need).
+
+### Linear List, Stack, Queue and Linked List
+
+### Hash Table
+
+Notice concepts like universal hashing, open addressing(probing) and perfect hash(FKS Scheme)
+
+### Binary Search Tree
+
+Notice predecessor and successor of the tree. Deleting a node from the tree is a bit sophiscated
+
+### Red Black Tree
+
+### Order Statistic Tree and Interval Tree
