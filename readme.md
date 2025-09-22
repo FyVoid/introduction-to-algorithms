@@ -84,3 +84,13 @@ I decided not to implement these stuctures since they're too difficult and not l
 These are two not so common data structures, just ackownledge 2 names.
 
 ### Disjoint Sets
+
+## Graph Algorithms
+
+### Graph Representations
+
+### BFS and DFS
+
+### Topological Sort
+
+### Strongly Connected Components
