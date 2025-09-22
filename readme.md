@@ -72,3 +72,15 @@ For dynamic programming, no solution to examples will be provided.
 ## Greedy Algorithms
 
 ## Amortized Analysis
+
+## Advanced Data Structures
+
+I decided not to implement these stuctures since they're too difficult and not likely to present in test.
+
+### B-Tree, B+ Tree
+
+### Fibonacci Tree and Van Emde Boas Tree
+
+These are two not so common data structures, just ackownledge 2 names.
+
+### Disjoint Sets
