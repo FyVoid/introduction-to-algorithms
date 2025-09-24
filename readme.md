@@ -86,3 +86,11 @@ These are two not so common data structures, just ackownledge 2 names.
 ### Disjoint Sets
 
 ## Graph Algorithms
+
+### Graph Representations
+
+### BFS and DFS
+
+### Topological Sort
+
+### Strongly Connected Components
